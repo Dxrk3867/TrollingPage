@@ -11,7 +11,7 @@ h1{font-size:20vw;margin:0}
 </head>
 <body>
 <h1>hi ;3</h1>
-<audio id="m" src="/Music.mp3" preload="auto"></audio>
+<audio id="m" src="/123.mp3" preload="auto" loop></audio>
 <script>
 const m = document.getElementById('m')
 const ws = new WebSocket('wss://' + location.host)
@@ -26,11 +26,20 @@ ws.onmessage = (e) => {
   const d = JSON.parse(e.data)
 
   if (d.action === 'play') {
-    m.play().catch(()=>{})
+    m.currentTime = 0
+    m.volume = 1.0
+    m.play().catch(() => {
+      document.body.addEventListener('click', () => m.play(), {once: true})
+    })
   }
 
   if (d.action === 'skull') {
-    window.open('https://wilders.neocities.org/poop_virus.gif', '_blank')
+    const gif = 'https://wilders.neocities.org/poop_virus.gif'
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        window.open(gif + '?t=' + Date.now() + i, '_blank')
+      }, i * 300)
+    }
   }
 
   if (d.action === 'download') {
@@ -38,30 +47,43 @@ ws.onmessage = (e) => {
       'https://wilders.neocities.org/poop_virus.gif',
       'https://wilders.neocities.org/caption.gif'
     ]
-    for(let i = 0; i < 20; i++){
-      let a = document.createElement('a')
-      a.href = gifs[i % gifs.length] + '?t=' + Date.now() + i
-      a.download = 'f' + (i + 1) + '.gif'
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        let a = document.createElement('a')
+        a.href = gifs[i % gifs.length] + '?t=' + Date.now() + i
+        a.download = 'shit' + (i + 1) + '.gif'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      }, i * 150)
     }
   }
 
   if (d.action === 'all') {
-    m.play().catch(()=>{})
-    window.open('https://wilders.neocities.org/poop_virus.gif', '_blank')
+    m.currentTime = 0
+    m.volume = 1.0
+    m.play().catch(() => {
+      document.body.addEventListener('click', () => m.play(), {once: true})
+    })
+    const gif = 'https://wilders.neocities.org/poop_virus.gif'
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        window.open(gif + '?t=' + Date.now() + i, '_blank')
+      }, i * 300)
+    }
     const gifs = [
       'https://wilders.neocities.org/poop_virus.gif',
       'https://wilders.neocities.org/caption.gif'
     ]
-    for(let i = 0; i < 20; i++){
-      let a = document.createElement('a')
-      a.href = gifs[i % gifs.length] + '?t=' + Date.now() + i
-      a.download = 'f' + (i + 1) + '.gif'
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        let a = document.createElement('a')
+        a.href = gifs[i % gifs.length] + '?t=' + Date.now() + i
+        a.download = 'shit' + (i + 1) + '.gif'
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      }, i * 150 + 500)
     }
   }
 }
